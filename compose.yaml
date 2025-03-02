@@ -1,1 +1,15 @@
 services:
+  postgres:
+    image: postgres:17
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: ear_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "@ticul8ing"
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
