@@ -12,7 +12,6 @@ import java.util.List;
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
-    // Find attendance records for a specific employee within a date range
     @Query("SELECT a FROM Attendance a WHERE a.employee.id = :employeeId AND a.date BETWEEN :startDate AND :endDate")
     List<Attendance> findByEmployeeIdAndDateBetween(
             @Param("employeeId") Long employeeId,
