@@ -14,6 +14,10 @@ public class AttendanceResponseDto {
     private LocalTime signOutTime;
     private AttendanceType attendanceType;
 
+    public AttendanceResponseDto( Long id, Long id1, LocalDate date, LocalTime signInTime, LocalTime signOutTime,
+                                  AttendanceType attendanceType ) {
+    }
+
     public Long getId() {
         return id;
     }

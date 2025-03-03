@@ -11,6 +11,10 @@ public class EmployeeResponseDto {
     private EmployeeType employeeType;
     private String departmentName;
 
+    public EmployeeResponseDto( Long id, String firstName, String lastName, String gender, String address, Long id1,
+                                EmployeeType employeeType ) {
+    }
+
     public Long getId() {
         return id;
     }
