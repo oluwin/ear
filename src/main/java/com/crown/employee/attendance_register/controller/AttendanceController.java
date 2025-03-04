@@ -18,7 +18,7 @@ public class AttendanceController {
     @Autowired
     private AttendanceService attendanceService;
 
-    // Record attendance (sign-in)
+    // Mark attendance (sign-in)
     @PostMapping("/sign-in")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<AttendanceResponseDto> recordSignIn(@RequestBody AttendanceDto attendanceDto) {
@@ -26,11 +26,38 @@ public class AttendanceController {
         return ResponseDto.success("Attendance recorded successfully", attendanceResponseDto);
     }
 
-    // Record attendance (sign-out)
+    // Update attendance (sign-out)
     @PostMapping("/sign-out/{attendanceId}")
     public ResponseDto<AttendanceResponseDto> recordSignOut(@PathVariable Long attendanceId) {
         AttendanceResponseDto attendanceResponseDto = attendanceService.recordSignOut(attendanceId);
         return ResponseDto.success("Attendance updated successfully", attendanceResponseDto);
+    }
+
+    // Register sick leave
+    @PostMapping("/sick-leave")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseDto<AttendanceResponseDto> recordSickLeave(@RequestBody AttendanceDto attendanceDto) {
+        AttendanceResponseDto attendanceResponseDto = attendanceService.recordSickLeave(attendanceDto.getEmployeeId(),
+                attendanceDto.getDate());
+        return ResponseDto.success("Sick leave recorded successfully", attendanceResponseDto);
+    }
+
+    // Register absence
+    @PostMapping("/absence")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseDto<AttendanceResponseDto> recordAbsence(@RequestBody AttendanceDto attendanceDto) {
+        AttendanceResponseDto attendanceResponseDto = attendanceService.recordAbsence(attendanceDto.getEmployeeId(),
+                attendanceDto.getDate());
+        return ResponseDto.success("Absence recorded successfully", attendanceResponseDto);
+    }
+
+    // Register AWOL (Absent Without Leave)
+    @PostMapping("/awol")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseDto<AttendanceResponseDto> recordAWOL(@RequestBody AttendanceDto attendanceDto) {
+        AttendanceResponseDto attendanceResponseDto = attendanceService.recordAWOL(attendanceDto.getEmployeeId(),
+                attendanceDto.getDate());
+        return ResponseDto.success("AWOL recorded successfully", attendanceResponseDto);
     }
 
     // Generate attendance report for an employee within a date range

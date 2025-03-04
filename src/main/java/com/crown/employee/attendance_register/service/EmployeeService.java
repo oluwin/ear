@@ -2,6 +2,7 @@ package com.crown.employee.attendance_register.service;
 
 import com.crown.employee.attendance_register.data.EmployeeDto;
 import com.crown.employee.attendance_register.data.EmployeeResponseDto;
+import com.crown.employee.attendance_register.exception.DuplicateResourceException;
 import com.crown.employee.attendance_register.exception.ResourceNotFoundException;
 import com.crown.employee.attendance_register.factory.EmployeeFactory;
 import com.crown.employee.attendance_register.model.Department;
@@ -27,7 +28,7 @@ public class EmployeeService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    // Helper method to convert Employee entity to EmployeeResponseDto
+    // Convert Employee entity to EmployeeResponseDto
     private EmployeeResponseDto convertToEmployeeResponseDto(Employee employee) {
         return new EmployeeResponseDto(
                 employee.getId(),
@@ -35,13 +36,20 @@ public class EmployeeService {
                 employee.getLastName(),
                 employee.getGender(),
                 employee.getAddress(),
-                employee.getDepartment().getId(),
+                employee.getDepartment().getName(),
                 employee.getEmployeeType()
         );
     }
 
-    // Add a new employee
+    // Add new employee
     public EmployeeResponseDto addEmployee(EmployeeDto employeeDTO) {
+        // Check for duplicate entry
+        employeeRepository.findByFirstNameAndLastName(employeeDTO.getFirstName(), employeeDTO.getLastName())
+                .ifPresent(e -> {
+                    throw new DuplicateResourceException("Employee with name " + employeeDTO.getFirstName() + " "
+                            + employeeDTO.getLastName() + " already exists.");
+                });
+
         // Confirm and Fetch Department Entity
         Department department = departmentRepository.findById(employeeDTO.getDepartmentId())
                 .orElseThrow(() -> new ResourceNotFoundException("Department", "id", employeeDTO.getDepartmentId()));
@@ -63,11 +71,20 @@ public class EmployeeService {
         return convertToEmployeeResponseDto(savedEmployee);
     }
 
-    // Update an existing employee
+    // Update action
     public EmployeeResponseDto updateEmployee(Long id, EmployeeDto employeeDTO) {
         // Confirm and Fetch existing Employee
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee", "id", id));
+
+        // Check for duplicate entry, excluding the current employee being updated
+        employeeRepository.findByFirstNameAndLastName(employeeDTO.getFirstName(), employeeDTO.getLastName())
+                .ifPresent(existingEmployee -> {
+                    if (!existingEmployee.getId().equals(id)) { // Ensure it's not the same employee
+                        throw new DuplicateResourceException("Employee with name " + employeeDTO.getFirstName() + " "
+                                + employeeDTO.getLastName() + " already exists.");
+                    }
+                });
 
         // Confirm and Fetch Department entity
         Department department = departmentRepository.findById(employeeDTO.getDepartmentId())
@@ -98,6 +115,9 @@ public class EmployeeService {
 
     // Fetch employees by department
     public List<EmployeeResponseDto> getEmployeesByDepartmentId(Long departmentId) {
+        departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Department", "id",departmentId));
+
         return employeeRepository.findByDepartmentId(departmentId)
                 .stream()
                 .map(this::convertToEmployeeResponseDto)

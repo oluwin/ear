@@ -38,6 +38,7 @@ public class AttendanceService {
                 attendance.getDate(),
                 attendance.getSignInTime(),
                 attendance.getSignOutTime(),
+                attendance.getEmployee().getFirstName() + " " + attendance.getEmployee().getLastName(),
                 attendance.getAttendanceType()
         );
     }
@@ -128,15 +129,17 @@ public class AttendanceService {
                 .sum();
 
         // Generate summary
+        String empName = employee.getFirstName() + " " + employee.getLastName();
+
         return String.format(
-                "Attendance Summary for Employee ID %d (%s - %s):\n" +
-                        "Total Records: %d\n" +
-                        "Total Hours Worked: %.2f",
-                employeeId, startDate, endDate, attendanceRecords.size(), totalManPowerHoursAmount
+                "Attendance Summary for Employee ID %s (%s - %s): " +
+                        "Total Records: %d - " +
+                        "Total Man-Hours Amount: %.2f",
+                empName, startDate, endDate, attendanceRecords.size(), totalManPowerHoursAmount
         );
     }
 
-    // Helper method to convert AttendanceResponseDto to Attendance entity
+    // Convert AttendanceResponseDto to Attendance entity
     private Attendance convertToAttendanceEntity(AttendanceResponseDto attendanceResponseDto) {
         Attendance attendance = new Attendance();
         attendance.setId(attendanceResponseDto.getId());

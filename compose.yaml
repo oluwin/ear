@@ -3,19 +3,19 @@ services:
     image: postgres:17
     container_name: postgres_db
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}  # Pull from .env
-      POSTGRES_USER: ${POSTGRES_USER}  # Pull from .env
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}  # Pull from .env
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
 
-  crown-interactive:  # Your Java application service
+  crown-interactive:
     build:
-      context: .  # Build the Dockerfile in the current directory
-      dockerfile: Dockerfile  # Specify the Dockerfile to use
+      context: .
+      dockerfile: Dockerfile
     container_name: crown_interactive_app
     ports:
       - "8025:8025"  # Map port 8025 on the host to port 8025 in the container

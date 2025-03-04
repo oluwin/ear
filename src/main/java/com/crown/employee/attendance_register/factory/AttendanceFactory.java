@@ -25,7 +25,7 @@ public class AttendanceFactory {
             case SICK_LEAVE:
             case ABSENCE:
             case AWOL:
-                // No clock-in/clock-out for these types
+                // No sign-in/sign-out for these types
                 break;
             default:
                 throw new IllegalArgumentException("Invalid attendance type: " + attendanceType);
@@ -34,7 +34,7 @@ public class AttendanceFactory {
         return attendance;
     }
 
-    // Update an existing attendance record for sign-out
+    // Update action
     public static Attendance updateAttendanceSignOut(Attendance attendance) {
         if (attendance.getAttendanceType() != AttendanceType.PRESENT) {
             throw new IllegalArgumentException("Sign-out is only allowed for PRESENT attendance records.");
