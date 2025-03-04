@@ -1,4 +1,7 @@
 package com.crown.employee.attendance_register.strategy;
 
-public class AttendanceCalculationStrategy {
+import com.crown.employee.attendance_register.model.Attendance;
+
+public interface AttendanceCalculationStrategy {
+    double calculateAttendance(Attendance attendance);
 }

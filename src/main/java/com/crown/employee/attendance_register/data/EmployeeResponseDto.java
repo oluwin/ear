@@ -2,14 +2,17 @@ package com.crown.employee.attendance_register.data;
 
 import com.crown.employee.attendance_register.model.enums.EmployeeType;
 
-public class EmployeeResponseDto {
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String gender;
-    private String address;
-    private EmployeeType employeeType;
-    private String departmentName;
+public EmployeeResponseDto() {}
+
+    public EmployeeResponseDto( Long id, String firstName, String lastName, String gender, String address, String departmentName, EmployeeType employeeType){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.address = address;
+        this.departmentName = departmentName;
+        this.employeeType = employeeType;
+   }
 
     public Long getId() {
         return id;
