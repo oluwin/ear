@@ -4,6 +4,7 @@ import com.crown.employee.attendance_register.model.enums.EmployeeType;
 import jakarta.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"first_name", "last_name"}))
 public class Employee {
 
     @Id

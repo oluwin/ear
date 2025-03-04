@@ -11,6 +11,18 @@ public class EmployeeResponseDto {
     private EmployeeType employeeType;
     private String departmentName;
 
+    public EmployeeResponseDto() {}
+
+    public EmployeeResponseDto( Long id, String firstName, String lastName, String gender, String address, String departmentName, EmployeeType employeeType){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.address = address;
+        this.departmentName = departmentName;
+        this.employeeType = employeeType;
+   }
+
     public Long getId() {
         return id;
     }

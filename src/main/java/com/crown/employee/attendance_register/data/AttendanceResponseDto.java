@@ -14,6 +14,17 @@ public class AttendanceResponseDto {
     private LocalTime signOutTime;
     private AttendanceType attendanceType;
 
+    public AttendanceResponseDto( Long id, Long id1, LocalDate date, LocalTime signInTime, LocalTime signOutTime,
+                                  String employeeName, AttendanceType attendanceType ) {
+        this.id = id;
+        this.employeeId = id1;
+        this.date = date;
+        this.signInTime = signInTime;
+        this.signOutTime = signOutTime;
+        this.employeeName = employeeName;
+        this.attendanceType = attendanceType;
+    }
+
     public Long getId() {
         return id;
     }

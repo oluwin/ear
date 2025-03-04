@@ -3,13 +3,29 @@ services:
     image: postgres:17
     container_name: postgres_db
     environment:
-      POSTGRES_DB: ear_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "@ticul8ing"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  crown-interactive:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crown_interactive_app
+    ports:
+      - "8025:8025"  # Map port 8025 on the host to port 8025 in the container
+    depends_on:
+      - postgres  # Ensure PostgreSQL starts before the application
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: unless-stopped
 
 volumes:
   postgres_data:
