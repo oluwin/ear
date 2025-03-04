@@ -13,7 +13,7 @@ This is a Spring Boot application for managing employee attendance in a high-tec
 
 2. **Attendance Management**:
    - Record attendance (sign-in/sign-out).
-   - Record sick leave, absence, and AWOL.
+   - Record sick leave, absence, and AWOL etc.
    - Generate attendance reports for a specific employee or all employees within a date range.
    - Generate an attendance summary for an employee within a date range.
 
@@ -21,8 +21,20 @@ This is a Spring Boot application for managing employee attendance in a high-tec
    - Uses **PostgreSQL** for data storage.
    - Automatically creates tables using Hibernate.
 
-4. **Status Codes**:
+4. **API Documentation**:
    - RESTful APIs with consistent status codes and responses.
+
+---
+
+## **Documentation**
+
+For detailed instructions, please refer to the following documents:
+
+- **[Setup Guide](docs/setup.md)**: How to set up and run the project.
+- **[API Endpoints](docs/api-endpoints.md)**: List of all available API endpoints.
+- **[Database Schema](docs/database-schema.md)**: Details about the database tables.
+- **[Contributing](docs/contributing.md)**: Guidelines for contributing to the project.
+- **[License](docs/license.md)**: License information.
 
 ---
 
@@ -30,23 +42,16 @@ This is a Spring Boot application for managing employee attendance in a high-tec
 
 - **Java 17**
 - **Spring Boot 3.x**
-- **PostgreSQL**
+- **PostgreSQL** (You may use any db of choice)
 - **Docker** (for containerization)
 - **Maven** (for dependency management)
 
 ---
 
-## **Setup and Installation**
+## **Contact**
 
-### **Prerequisites**
+For any questions or feedback, please contact:
 
-1. **Java 17**: Ensure you have Java 17 installed.
-2. **PostgreSQL**: Install and run PostgreSQL locally or in a Docker container.
-3. **Docker** (optional): If you want to run the application in a Docker container.
-
-### **Steps to Run the Application**
-
-#### **1. Clone the Repository**
-```bash
-git clone https://github.com/oluwin/ear.git
-cd ear
+- **Adebumiti A. Olusegun**  
+- **Email**: connect2olusegun@gmail.com  
+- **GitHub**: [oluwin](https://github.com/oluwin)
